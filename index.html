@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You Matter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f1eb 0%, #ebe6dd 100%);
+            color: #5a5a5a;
+            min-height: 100vh;
+            display: flex;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 350px;
+            background: #2a2a2a;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .logo-section {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(212, 165, 116, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 24px;
+        }
+
+        .app-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2em;
+            font-style: italic;
+            color: #d4a574;
+            margin-bottom: 5px;
+            font-weight: 300;
+        }
+
+        .app-subtitle {
+            font-size: 0.85em;
+            color: #999;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Mood Section */
+        .mood-section h3 {
+            color: #999;
+            font-size: 0.75em;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .moods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .moods button {
+            padding: 12px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ccc;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            text-align: left;
+        }
+
+        .moods button:hover {
+            background: rgba(212, 165, 116, 0.15);
+            border-color: rgba(212, 165, 116, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .moods button.active {
+            background: rgba(212, 165, 116, 0.2);
+            border-color: #d4a574;
+        }
+
+        /* Breathing Space */
+        .breathing-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .breathing-section h3 {
+            color: #999;
+            font-size: 0.75em;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        .breath-circle {
+            width: 140px;
+            height: 140px;
+            border: 2px solid rgba(212, 165, 116, 0.3);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .breath-circle:hover {
+            border-color: rgba(212, 165, 116, 0.5);
+        }
+
+        .breath-text {
+            font-size: 0.9em;
+            color: #999;
+            font-style: italic;
+        }
+
+        .breath-circle.breathing {
+            animation: breathe 8s ease-in-out infinite;
+            border-color: #d4a574;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); border-width: 2px; }
+            25% { transform: scale(1.15); border-width: 3px; }
+            50% { transform: scale(1); border-width: 2px; }
+        }
+
+        .breath-instruction {
+            font-size: 0.85em;
+            color: #d4a574;
+            font-style: italic;
+            min-height: 20px;
+        }
+
+        /* Quote */
+        .quote {
+            font-size: 0.9em;
+            color: #888;
+            font-style: italic;
+            text-align: center;
+            line-height: 1.6;
+            padding: 20px 0;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 25px 40px;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .header-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8em;
+            font-style: italic;
+            color: #5a5a5a;
+            font-weight: 300;
+        }
+
+        .header-subtitle {
+            font-size: 0.85em;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .date {
+            font-size: 0.75em;
+            color: #aaa;
+            font-style: italic;
+            position: absolute;
+            top: 30px;
+            right: 40px;
+        }
+
+        /* Info Sections */
+        .info-container {
+            padding: 40px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .info-section {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(212, 165, 116, 0.15);
+        }
+
+        .info-section h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6em;
+            color: #4a4a4a;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .info-section p {
+            color: #6a6a6a;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .info-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        .info-list li {
+            padding: 8px 0 8px 25px;
+            position: relative;
+            color: #6a6a6a;
+        }
+
+        .info-list li:before {
+            content: "•";
+            position: absolute;
+            left: 8px;
+            color: #d4a574;
+        }
+
+        /* Chat Container */
+        .chat-container {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(212, 165, 116, 0.15);
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+        }
+
+        #chatbox {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+        }
+
+        /* Messages */
+        .message {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            align-items: flex-start;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 16px;
+        }
+
+        .bot .message-icon {
+            background: rgba(212, 165, 116, 0.15);
+        }
+
+        .user .message-icon {
+            background: rgba(150, 150, 150, 0.15);
+        }
+
+        .message-content {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 14px 18px;
+            border-radius: 12px;
+            max-width: 70%;
+            color: #5a5a5a;
+            line-height: 1.6;
+            border: 1px solid rgba(212, 165, 116, 0.1);
+        }
+
+        .user {
+            flex-direction: row-reverse;
+        }
+
+        .user .message-content {
+            background: rgba(212, 165, 116, 0.12);
+            border-color: rgba(212, 165, 116, 0.2);
+        }
+
+        .message-time {
+            font-size: 0.7em;
+            color: #aaa;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* Input Area */
+        .input-container {
+            padding: 20px 30px;
+            border-top: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .input-area {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            border-radius: 25px;
+            font-size: 0.95em;
+            outline: none;
+            background: rgba(255, 255, 255, 0.9);
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            color: #5a5a5a;
+        }
+
+        input::placeholder {
+            color: #aaa;
+        }
+
+        input:focus {
+            border-color: #d4a574;
+            background: #fff;
+        }
+
+        button.send {
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: 50%;
+            background: #b39575;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        button.send:hover {
+            background: #a08565;
+            transform: scale(1.05);
+        }
+
+        .input-hint {
+            font-size: 0.7em;
+            color: #aaa;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* Scrollbar */
+        #chatbox::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #chatbox::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        #chatbox::-webkit-scrollbar-thumb {
+            background: rgba(212, 165, 116, 0.3);
+            border-radius: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 25px 20px;
+            }
+
+            .moods {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .breathing-section {
+                padding: 20px;
+            }
+
+            .breath-circle {
+                width: 100px;
+                height: 100px;
+            }
+
+            .date {
+                position: static;
+                margin-top: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <div class="logo-icon">🤍</div>
+            <div class="app-title">You Matter</div>
+            <div class="app-subtitle">Your gentle space</div>
+        </div>
+
+        <div class="mood-section">
+            <h3>How are you feeling?</h3>
+            <div class="moods">
+                <button onclick="quickMsg('I feel calm')">Calm</button>
+                <button onclick="quickMsg('I feel anxious')">Anxious</button>
+                <button onclick="quickMsg('I feel sad')">Sad</button>
+                <button onclick="quickMsg('I feel grateful')">Grateful</button>
+                <button onclick="quickMsg('I feel tired')">Tired</button>
+                <button onclick="quickMsg('I feel hopeful')">Hopeful</button>
+            </div>
+        </div>
+
+        <div class="breathing-section">
+            <h3>Breathing Space</h3>
+            <div class="breath-circle" id="breathCircle" onclick="startBreathing()">
+                <span class="breath-text">TAP</span>
+            </div>
+            <div class="breath-instruction" id="breathInstruction">tap to breathe</div>
+        </div>
+
+        <div class="quote">
+            "You deserve the same compassion you give others."
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header" style="position: relative;">
+            <div class="header-title">I'm here with you</div>
+            <div class="header-subtitle">safe • private • always listening</div>
+            <div class="date" id="currentDate"></div>
+        </div>
+
+        <div class="info-container">
+            <!-- About Space -->
+            <div class="info-section">
+                <h2>A Safe Space, Just for You</h2>
+                <p>This is your judgment-free zone. You can share your thoughts, feelings, or worries openly — without fear.</p>
+                <ul class="info-list">
+                    <li>We don't store your personal conversations</li>
+                    <li>No pressure, no expectations</li>
+                    <li>Just a quiet space to let things out</li>
+                </ul>
+                <p style="margin-top: 15px;">Whether you're feeling overwhelmed, overthinking, or just need someone to listen — this space is here for you.</p>
+            </div>
+
+            <!-- About Ava -->
+            <div class="info-section">
+                <h2>Meet Ava</h2>
+                <p><strong>Ava</strong> means "life" and "gentle breath" — a reminder that even in heavy moments, you are still here, still breathing, and that matters.</p>
+                <p>Ava is your calm little corner on the internet — a space where you can pause, breathe, and just be yourself.</p>
+            </div>
+
+            <!-- Chat Section -->
+            <div class="info-section">
+                <h2>Talk to Ava</h2>
+                <p style="margin-bottom: 20px;">Go ahead… type what's on your mind. No need to filter your thoughts — this space is yours.</p>
+                
+                <div class="chat-container">
+                    <div id="chatbox"></div>
+                    
+                    <div class="input-container">
+                        <div class="input-area">
+                            <input type="text" id="msg" placeholder="Share what's on your mind...">
+                            <button class="send" onclick="send()">→</button>
+                        </div>
+                        <div class="input-hint">Enter to send • Shift+Enter for new line</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reminder -->
+            <div class="info-section" style="background: rgba(255, 245, 235, 0.6); border-color: rgba(212, 165, 116, 0.25);">
+                <h2>A Gentle Reminder</h2>
+                <p>Ava is an AI companion created to support you emotionally — but she is not a replacement for professional help.</p>
+                <ul class="info-list">
+                    <li>Responses are AI-generated</li>
+                    <li>This space is for comfort, guidance, and support</li>
+                    <li>If you're going through something intense, please consider reaching out to a trusted person or a mental health professional</li>
+                </ul>
+                <p style="margin-top: 15px; font-weight: 500;">You deserve real support, care, and understanding — always.</p>
+            </div>
+
+            <div style="text-align: center; padding: 30px 0; color: #aaa; font-style: italic;">
+                You don't have to carry everything alone
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set current date
+        const options = { weekday: 'long', month: 'long', day: 'numeric' };
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', options);
+
+        // Breathing exercise
+        let breathingActive = false;
+        let breathingInterval;
+
+        function startBreathing() {
+            const circle = document.getElementById('breathCircle');
+            const instruction = document.getElementById('breathInstruction');
+            
+            if (breathingActive) {
+                stopBreathing();
+                return;
+            }
+
+            breathingActive = true;
+            circle.classList.add('breathing');
+            
+            const phases = [
+                { text: 'breathe in...', duration: 4000 },
+                { text: 'hold...', duration: 4000 },
+                { text: 'breathe out...', duration: 4000 }
+            ];
+            
+            let phaseIndex = 0;
+            
+            function updatePhase() {
+                instruction.textContent = phases[phaseIndex].text;
+                phaseIndex = (phaseIndex + 1) % phases.length;
+            }
+            
+            updatePhase();
+            breathingInterval = setInterval(updatePhase, 4000);
+        }
+
+        function stopBreathing() {
+            const circle = document.getElementById('breathCircle');
+            const instruction = document.getElementById('breathInstruction');
+            
+            breathingActive = false;
+            circle.classList.remove('breathing');
+            clearInterval(breathingInterval);
+            instruction.textContent = 'tap to breathe';
+        }
+
+        // Chat functionality
+        window.onload = function() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const timeStr = hours + ':' + (minutes < 10 ? '0' : '') + minutes;
+            
+            document.getElementById("chatbox").innerHTML += 
+                `<div class='message bot'>
+                    <div class='message-icon'>🌸</div>
+                    <div class='message-content'>
+                        Hello, I'm so glad you're here. This is your space — no rush, no judgement. Whenever you're ready, I'm listening.
+                        <span class='message-time'>You Matter • now</span>
+                    </div>
+                </div>`;
+        };
+
+        function send() {
+            let input = document.getElementById("msg");
+            let message = input.value.trim();
+
+            if (message === "") return;
+
+            let chatbox = document.getElementById("chatbox");
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const timeStr = hours + ':' + (minutes < 10 ? '0' : '') + minutes;
+
+            chatbox.innerHTML += 
+                `<div class='message user'>
+                    <div class='message-icon'>you</div>
+                    <div class='message-content'>
+                        ${message}
+                        <span class='message-time'>You • ${timeStr}</span>
+                    </div>
+                </div>`;
+            
+            input.value = "";
+            chatbox.scrollTop = chatbox.scrollHeight;
+
+            fetch("/chat", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({message: message})
+            })
+            .then(res => res.json())
+            .then(data => {
+                const responseTime = new Date();
+                const respHours = responseTime.getHours();
+                const respMinutes = responseTime.getMinutes();
+                const respTimeStr = respHours + ':' + (respMinutes < 10 ? '0' : '') + respMinutes;
+                
+                chatbox.innerHTML += 
+                    `<div class='message bot'>
+                        <div class='message-icon'>🌸</div>
+                        <div class='message-content'>
+                            ${data.reply}
+                            <span class='message-time'>You Matter • ${respTimeStr}</span>
+                        </div>
+                    </div>`;
+                chatbox.scrollTop = chatbox.scrollHeight;
+            })
+            .catch(error => {
+                chatbox.innerHTML += 
+                    `<div class='message bot'>
+                        <div class='message-icon'>🌸</div>
+                        <div class='message-content'>
+                            I'm here listening. Take your time… I'm right here with you.
+                            <span class='message-time'>You Matter • ${timeStr}</span>
+                        </div>
+                    </div>`;
+                chatbox.scrollTop = chatbox.scrollHeight;
+            });
+        }
+
+        document.getElementById("msg").addEventListener("keypress", function(e) {
+            if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                send();
+            }
+        });
+
+        function quickMsg(text) {
+            document.getElementById("msg").value = text;
+            send();
+        }
+    </script>
+
+</body>
+</html>
